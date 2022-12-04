@@ -85,7 +85,7 @@ class SawWave(Wave):
     Implements Saw wave as a finite hybrid fourier series of a sin wave
     Parent: Wave (_type_): Represents a Sin function given parameters, used to generate a series
     """
-    def __init__(self, frequency=260, amplitude=0.2, length=1.0, x=1, harmonics=10, step=1):
+    def __init__(self, frequency=260, amplitude=0.2, length=1.0, x=1, harmonics=50, step=1):
         self.frequency = frequency
         self.amplitude = amplitude
         self.length = length
@@ -99,7 +99,7 @@ class EvenSawWave(Wave):
     Implements Even Saw wave as a finite even fourier series of a sin wave
     Parent: Wave (_type_): Represents a Sin function given parameters, used to generate a series
     """
-    def __init__(self, frequency=260, amplitude=0.2, length=1.0, x=2, harmonics=10, step=2):
+    def __init__(self, frequency=260, amplitude=0.2, length=1.0, x=2, harmonics=50, step=2):
         self.frequency = frequency
         self.amplitude = amplitude
         self.length = length

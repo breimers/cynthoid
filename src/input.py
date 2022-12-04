@@ -18,29 +18,29 @@ class KeyInput:
         self.sharp_keys = 'wetyuop'
         self.waveform = SinWave
 
-        self.octave = 1.0
+        self.octave = 5
         
         self.NATURAL_SCALE = [
-            C(octave = self.octave),
-            D(octave = self.octave),
-            E(octave = self.octave),
-            F(octave = self.octave),
-            G(octave = self.octave),
-            A(octave = self.octave),
-            B(octave = self.octave),
-            C(octave = self.octave*2),
-            D(octave = self.octave*2),
-            E(octave = self.octave*2)
+            C(),
+            D(),
+            E(),
+            F(),
+            G(),
+            A(),
+            B(),
+            C(octave = 10),
+            D(octave = 10),
+            E(octave = 10)
         ]
 
         self.SHARP_SCALE = [
-            C(octave = self.octave).sharp(),
-            D(octave = self.octave).sharp(),
-            F(octave = self.octave).sharp(),
-            G(octave = self.octave).sharp(),
-            A(octave = self.octave).sharp(),
-            C(octave = self.octave*2).sharp(),
-            D(octave = self.octave*2).sharp()
+            C().sharp(),
+            D().sharp(),
+            F().sharp(),
+            G().sharp(),
+            A().sharp(),
+            C(octave = 10).sharp(),
+            D(octave = 10).sharp()
         ]
         
         self.natkey_freq_map = dict(
@@ -57,6 +57,8 @@ class KeyInput:
             )
         )
 
+        self.key_map = {**self.natkey_freq_map, **self.sharpkey_freq_map}
+        
     def draw(self):
         print(self.term.home + self.term.tomato4_on_tomato4 + self.term.clear)
         height = self.term.height
@@ -98,26 +100,22 @@ class KeyInput:
                     self.waveform = SawWave
                 if val == '4':
                     self.waveform = EvenSawWave
+                if val == ']':
+                    self.octave += 1
+                if val == '[':
+                    self.octave -= 1
+                self.octave = self.octave if self.octave >= 1 else 1
                 if val.code == 361:
                     print(self.term.home + self.term.green_on_black + self.term.clear)
                     break
-                if val in self.natural_keys:
-                    freq = self.natkey_freq_map[val]
+                if val in self.key_map.keys():
+                    freq = self.key_map[val]
                     # self.highlight_section()
                     self.waveform(
-                        frequency=freq,
+                        frequency=freq * (self.octave / 5),
                         length=1.0
                     ).play()
                     # self.unhighlight_section()
-                if val in self.sharp_keys:
-                    freq = self.sharpkey_freq_map[val]
-                    # self.highlight_section()
-                    self.waveform(
-                        frequency=freq,
-                        length=1.0
-                    ).play()
-                    # self.unhighlight_section()
-
 
 class MidiInput:
     pass
