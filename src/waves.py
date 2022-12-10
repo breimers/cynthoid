@@ -9,7 +9,6 @@ import sounddevice as sd
 SYSTEM_SAMPLE_RATE = sd.query_devices(kind='output')['default_samplerate']  # type: ignore
 DEFAULT_SAMPLE_RATE = SYSTEM_SAMPLE_RATE if SYSTEM_SAMPLE_RATE >= 1 else 44100
 
-
 class Wave:
     """Wave
     Represents a Sin function given parameters, used to generate a series
@@ -56,7 +55,7 @@ class Wave:
             samplerate (_type_, optional): Audio device sample rate. Defaults to DEFAULT_SAMPLE_RATE.
         """
         sd.play(self.series(), samplerate)
-
+            
 
 class SinWave(Wave):
     """SinWave

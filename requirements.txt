@@ -1,4 +1,5 @@
 numpy
 sounddevice
 Cython
+keyboard
 blessed
